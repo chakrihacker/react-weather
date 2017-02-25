@@ -1,0 +1,117 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(http://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css);
+body {
+  background: linear-gradient(90deg, #7474BF 10%, #348AC7 90%);
+}
+
+#root {
+  background-color: #fff;
+  width: 400px;
+  margin: 100px auto;
+}
+
+.weatherCard {
+  width: 400px;
+  height: 200px;
+  font-family: "Open Sans";
+  position: relative;
+}
+
+.currentTemp {
+  width: 220px;
+  height: 200px;
+  background: #292929;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.temp {
+  font-size: 80px;
+  text-align: center;
+  display: block;
+  font-weight: 300;
+  color: white;
+  padding: 20px 0 0;
+}
+
+.location {
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 30px;
+  display: block;
+}
+
+.currentWeather {
+  width: 180px;
+  height: 200px;
+  background: #ededed;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.conditions {
+  font-family: weathericons;
+  font-size: 80px;
+  display: block;
+  padding: 20px 0 0;
+  text-align: center;
+}
+
+.info {
+  width: 180px;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #2ab2ea;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}
+
+.rain {
+  width: 50%;
+  position: absolute;
+  left: 10px;
+  word-spacing: 60px;
+  top: 3px;
+}
+
+.rain::before {
+  display: block;
+  content: "";
+  font-family: weathericons;
+  font-size: 40px;
+  left: 6px;
+  top: -4px;
+  position: absolute;
+}
+
+.wind {
+  width: 50%;
+  right: -10px;
+  position: absolute;
+  word-spacing: 60px;
+  top: 3px;
+}
+
+.wind::before {
+  display: block;
+  content: "";
+  font-family: weathericons;
+  font-size: 25px;
+  left: -10px;
+  position: absolute;
+  top: 5px;
+}
+
+.locationMessage {
+  background: #ed0a0f;
+  color: white;
+}
