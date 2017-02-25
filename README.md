@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -1354,3 +1355,7 @@ Please refer to [this section](#resolving-module-not-found-error-cannot-resolve-
 ## Something Missing?
 
 If you have ideas for more “How To” recipes that should be on this page, [let us know](https://github.com/facebookincubator/create-react-app/issues) or [contribute some!](https://github.com/facebookincubator/create-react-app/edit/master/packages/react-scripts/template/README.md)
+=======
+# react-weather
+FreeCodeCamp Weather Project
+>>>>>>> 9b0074da334cd2df3b36f9735f5ffa5a8f52730b
