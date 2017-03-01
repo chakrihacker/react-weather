@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 
 class CurrentTemp extends React.Component {
+  
   render() {
     return (
       <div className="currentTemp">
         <span className="temp">
           {this.props.temp}&deg;
+          <a href='#' className='convertTemp' onClick={this.props.handleTempConversion}>{this.props.tempType}</a>
         </span>
         <span className="location">
           {this.props.location}
@@ -50,8 +52,10 @@ class App extends Component {
       temp: '',
       location: '',
       icon: '',
-      description: ''
+      description: '',
+      tempType: 'C'
     };
+    this.handleTemp = this.handleTemp.bind(this);
   }
 
   getWeather() {
@@ -74,7 +78,7 @@ class App extends Component {
         if (this.readyState === 4 && this.status === 200) {
           let jsondata = xhr.responseText;
           let data = JSON.parse(jsondata);
-          temp = parseInt(data.main.temp);
+          temp = parseInt(data.main.temp, 10);
           location = data.name;
           icon = data.weather[0].id;
           description = data.weather[0].description;
@@ -91,6 +95,21 @@ class App extends Component {
       xhr.send();
     }
   }
+  
+  handleTemp() {
+    if (this.state.tempType==='C') {
+      this.setState({
+        temp: parseInt((9*this.state.temp + (32*5))/5)
+      })
+    }else {
+      this.setState({
+        temp: parseInt((5*(this.state.temp - 32)) / 9)
+      })
+    }
+    this.setState({
+      tempType: this.state.tempType==='F' ? 'C' : 'F'
+    })
+  }
 
   componentDidMount() {
     this.getWeather();
@@ -102,7 +121,9 @@ class App extends Component {
         <div className="weatherCard">
           <CurrentTemp
             temp={this.state.temp}
-            location={this.state.location} />
+            location={this.state.location}
+            tempType={this.state.tempType}
+            handleTempConversion={this.handleTemp} />
           <CurrentWeather
             icon={this.state.icon}
             description={this.state.description} />

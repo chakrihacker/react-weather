@@ -112,3 +112,11 @@ body {
   background: #ed0a0f;
   color: white;
 }
+
+.convertTemp {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 70px; 
+  text-decoration: none;
+}
