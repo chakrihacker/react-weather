@@ -75,15 +75,12 @@ body {
   color: white;
 }
 
-.rain {
-  width: 50%;
-  position: absolute;
-  left: 10px;
-  word-spacing: 60px;
-  top: 3px;
+.description {
+  display: block;
+  margin: 10px;
 }
 
-.rain::before {
+/*.rain::before {
   display: block;
   content: "";
   font-family: weathericons;
@@ -109,7 +106,7 @@ body {
   left: -10px;
   position: absolute;
   top: 5px;
-}
+}*/
 
 .locationMessage {
   background: #ed0a0f;
