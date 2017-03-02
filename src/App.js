@@ -49,6 +49,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      initialTemp: '',
       temp: '',
       location: '',
       icon: '',
@@ -84,6 +85,7 @@ class App extends Component {
           description = data.weather[0].description;
           console.log(icon, description);
 	        self.setState({
+            initialTemp: temp,
 		        temp: temp,
 		        location: location,
             icon: "wi-owm-"+icon,
@@ -97,9 +99,10 @@ class App extends Component {
   }
   
   handleTemp() {
+    console.log(this.state.initialTemp);
     if (this.state.tempType==='C') {
       this.setState({
-        temp: parseInt((9*this.state.temp + (32*5))/5)
+        temp: parseInt((9*this.state.initialTemp + (32*5))/5)
       })
     }else {
       this.setState({
