@@ -54,59 +54,43 @@ class App extends Component {
       location: '',
       icon: '',
       description: '',
-      tempType: 'C'
+      tempType: 'F'
     };
     this.handleTemp = this.handleTemp.bind(this);
   }
 
   getWeather() {
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success);
-    } else {
-      console.log('Browser Does not support location access or location permission is blocked');
-    }
-
-	  let self = this;
+    
+    let self = this;
+    navigator.geolocation.getCurrentPosition(success);
 
     function success(position) {
-      const apikey = "baf6c6853241d66bcc45614cd1e3e901";
-      const url = "http://api.openweathermap.org/data/2.5/weather?units=metric&lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&appid=" + apikey;
-      let xhr = new XMLHttpRequest();
-      console.log(url);
-      xhr.onreadystatechange = function() {
-	      let temp, location, icon, description;
-        if (this.readyState === 4 && this.status === 200) {
-          let jsondata = xhr.responseText;
-          let data = JSON.parse(jsondata);
-          temp = parseInt(data.main.temp, 10);
-          location = data.name;
-          icon = data.weather[0].id;
-          description = data.weather[0].description;
-          console.log(icon, description);
-	        self.setState({
-            initialTemp: temp,
-		        temp: temp,
-		        location: location,
-            icon: "wi-owm-"+icon,
-            description: description
-	        });
-        }
-      };
-      xhr.open("GET", url, true);
-      xhr.send();
+      console.log(position.coords.latitude, position.coords.longitude);
+      const yahooUrl = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22("+position.coords.latitude+"%2C"+position.coords.longitude+")%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+      console.log(yahooUrl);
+      fetch(yahooUrl)
+        .then(function(response){
+          response.json().then(function (data) {
+            self.setState({
+              initialTemp: data.query.results.channel.item.condition.temp,
+              temp: data.query.results.channel.item.condition.temp,
+              icon: "wi-yahoo-"+data.query.results.channel.item.condition.code,
+              description: data.query.results.channel.item.condition.text,
+              location: data.query.results.channel.location.city
+            })
+          })
+        })
     }
   }
   
   handleTemp() {
-    console.log(this.state.initialTemp);
-    if (this.state.tempType==='C') {
+    if (this.state.tempType==='F') {
       this.setState({
-        temp: parseInt((9*this.state.initialTemp + (32*5))/5)
+        temp: parseInt(((5*(this.state.initialTemp - 32)) / 9), 10)
       })
     }else {
       this.setState({
-        temp: parseInt((5*(this.state.temp - 32)) / 9)
+        temp: parseInt(((9*this.state.temp + (32*5))/5), 10)
       })
     }
     this.setState({
@@ -119,21 +103,27 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="weatherCard">
-          <CurrentTemp
-            temp={this.state.temp}
-            location={this.state.location}
-            tempType={this.state.tempType}
-            handleTempConversion={this.handleTemp} />
-          <CurrentWeather
-            icon={this.state.icon}
-            description={this.state.description} />
+    if (navigator.geolocation) {
+      return (
+          <div className="weatherCard">
+            <CurrentTemp
+              temp={this.state.temp}
+              location={this.state.location}
+              tempType={this.state.tempType}
+              handleTempConversion={this.handleTemp} />
+            <CurrentWeather
+              icon={this.state.icon}
+              description={this.state.description} />
+          </div>
+      );
+    } 
+    else {
+      return(
+        <div>
+          <LocationUnavailable />
         </div>
-        {/* <LocationUnavailable /> */}
-      </div>
-    );
+      )
+    }
   }
 }
 
