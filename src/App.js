@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 class CurrentTemp extends React.Component {
-  
+
   render() {
     return (
       <div className="currentTemp">
@@ -60,10 +60,11 @@ class App extends Component {
   }
 
   getWeather() {
-    
-    let self = this;
-    navigator.geolocation.getCurrentPosition(success);
 
+    let self = this;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success);
+    }
     function success(position) {
       console.log(position.coords.latitude, position.coords.longitude);
       const yahooUrl = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22("+position.coords.latitude+"%2C"+position.coords.longitude+")%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
@@ -82,7 +83,7 @@ class App extends Component {
         })
     }
   }
-  
+
   handleTemp() {
     if (this.state.tempType==='F') {
       this.setState({
@@ -116,7 +117,7 @@ class App extends Component {
               description={this.state.description} />
           </div>
       );
-    } 
+    }
     else {
       return(
         <div>
