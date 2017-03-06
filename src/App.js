@@ -54,7 +54,9 @@ class App extends Component {
       location: '',
       icon: '',
       description: '',
-      tempType: 'F'
+      tempType: 'F',
+      isLoading: true,
+      isLocationAvailable: true
     };
     this.handleTemp = this.handleTemp.bind(this);
   }
@@ -63,8 +65,16 @@ class App extends Component {
 
     let self = this;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(success);
+      navigator.geolocation.getCurrentPosition(success, error);
     }
+    
+    function error() {
+      self.setState({
+        isLocationAvailable: false,
+        isLoading: false
+      });
+    }
+    
     function success(position) {
       console.log(position.coords.latitude, position.coords.longitude);
       const yahooUrl = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22("+position.coords.latitude+"%2C"+position.coords.longitude+")%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
@@ -77,7 +87,8 @@ class App extends Component {
               temp: data.query.results.channel.item.condition.temp,
               icon: "wi-yahoo-"+data.query.results.channel.item.condition.code,
               description: data.query.results.channel.item.condition.text,
-              location: data.query.results.channel.location.city
+              location: data.query.results.channel.location.city,
+              isLoading: false
             })
           })
         })
@@ -104,27 +115,30 @@ class App extends Component {
   }
 
   render() {
-    if (navigator.geolocation) {
-      return (
-          <div className="weatherCard">
-            <CurrentTemp
-              temp={this.state.temp}
-              location={this.state.location}
-              tempType={this.state.tempType}
-              handleTempConversion={this.handleTemp} />
-            <CurrentWeather
-              icon={this.state.icon}
-              description={this.state.description} />
-          </div>
-      );
-    }
-    else {
-      return(
-        <div>
-          <LocationUnavailable />
-        </div>
-      )
-    }
+        if (this.state.isLoading) {
+          return(
+            <div className="weatherCard">Loading</div>
+            );
+        }else if (this.state.isLocationAvailable) {
+          return(
+            <div className="weatherCard">
+              <CurrentTemp
+                temp={this.state.temp}
+                location={this.state.location}
+                tempType={this.state.tempType}
+                handleTempConversion={this.handleTemp} />
+              <CurrentWeather
+                icon={this.state.icon}
+                description={this.state.description} />
+            </div>
+          )
+        } else {
+          return(
+            <div className="weatherCard">
+              <LocationUnavailable />
+            </div>
+          );
+        }  
   }
 }
 
