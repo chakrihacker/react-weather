@@ -5,7 +5,7 @@ FreeCodeCamp Weather Project
 * [x] Render Loading
 * [x] Render Failed View
 * [x] Render Weather Card
-* [ ] Add Loading Animation
+* [x] Add Loading Animation
 
 # Credits
 [Denis Tunguz](https://dribbble.com/shots/636796-Weather-Pop-up "Dribble Weather Card")

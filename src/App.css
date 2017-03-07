@@ -80,34 +80,6 @@ body {
   margin: 10px;
 }
 
-/*.rain::before {
-  display: block;
-  content: "";
-  font-family: weathericons;
-  font-size: 40px;
-  left: 6px;
-  top: -4px;
-  position: absolute;
-}
-
-.wind {
-  width: 50%;
-  right: -10px;
-  position: absolute;
-  word-spacing: 60px;
-  top: 3px;
-}
-
-.wind::before {
-  display: block;
-  content: "";
-  font-family: weathericons;
-  font-size: 25px;
-  left: -10px;
-  position: absolute;
-  top: 5px;
-}*/
-
 .locationMessage {
   background: #ed0a0f;
   color: white;
@@ -117,6 +89,29 @@ body {
   background: none;
   border: none;
   color: #fff;
-  font-size: 70px; 
+  font-size: 70px;
   text-decoration: none;
+}
+
+.loader{
+  margin: 0 0 2em;
+  height: 100px;
+  width: 20%;
+  text-align: center;
+  padding: 1em;
+  margin: 0 auto 1em;
+  display: inline-block;
+  vertical-align: top;
+  position: absolute;
+}
+
+svg{
+  position: absolute;
+  top: 40px;
+  left: 150px;
+}
+
+svg path,
+svg rect{
+  fill: #FF6700;
 }
