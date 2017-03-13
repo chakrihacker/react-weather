@@ -6,6 +6,7 @@ FreeCodeCamp Weather Project
 * [x] Render Failed View
 * [x] Render Weather Card
 * [x] Add Loading Animation
+* [ ] Add Location Search
 
 # Credits
 [Denis Tunguz](https://dribbble.com/shots/636796-Weather-Pop-up "Dribble Weather Card")
