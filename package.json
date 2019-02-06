@@ -8,8 +8,8 @@
   },
   "homepage": "https://chakrihacker.github.io/react-weather",
   "dependencies": {
-    "react": "15.4.2",
-    "react-dom": "15.4.2"
+    "react": "15.6.2",
+    "react-dom": "15.6.2"
   },
   "scripts": {
     "start": "react-scripts start",
